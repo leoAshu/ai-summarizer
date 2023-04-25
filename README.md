@@ -1,1 +1,1 @@
-# ai-summarizer
+# OpenAI Article Summarizer
