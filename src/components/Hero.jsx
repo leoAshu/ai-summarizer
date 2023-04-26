@@ -14,7 +14,7 @@ function Hero() {
 
                 <button
                     type='button'
-                    onClick={() => window.open('https://github.com/leoAshu')}
+                    onClick={() => window.open('https://github.com/leoAshu/ai-summarizer')}
                     className = 'black_btn'
                 >
                     GitHub
