@@ -26,17 +26,29 @@ function Demo() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        const { data } = await getSummary({ articleUrl: article.url });
+        const articleFromHistory = allArticles.find(item => item.url == article.url);
 
-        if(data.summary) {
-            const newArticle = { ...article, summary: data.summary };
-            const updatedAllArticles = [newArticle, ...allArticles];
+        if(articleFromHistory) {
+            let updatedAllArticles = [...allArticles];
+            updatedAllArticles.splice(updatedAllArticles.indexOf(articleFromHistory), 1);
+            updatedAllArticles = [articleFromHistory, ...updatedAllArticles];
 
-            setArticle(newArticle);
+            setArticle(articleFromHistory);
             setAllArticles(updatedAllArticles);
+        } else {
+            const { data } = await getSummary({ articleUrl: article.url });
 
-            localStorage.setItem('articles', JSON.stringify(updatedAllArticles));
+            if(data.summary) {
+                const newArticle = { ...article, summary: data.summary };
+                const updatedAllArticles = [newArticle, ...allArticles];
+
+                setArticle(newArticle);
+                setAllArticles(updatedAllArticles);
+
+                localStorage.setItem('articles', JSON.stringify(updatedAllArticles));
+            }
         }
+
     }
 
     function handleCopy(copyUrl) {
